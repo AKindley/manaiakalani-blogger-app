@@ -175,9 +175,11 @@ class Add extends Component {
 			  let postInfo = await Posts.get(selectedBlog.id, id);
 			  currentMoment = postInfo.published;
 		  }
-		  
+
 		  content = iframeModifier(content, true); //replaces specific image tags with iframes for the post
-		  
+		  if (this.state.date < new Date()){
+			  currentMoment = moment(new Date()).add(62,'s').toISOString(); //Due to how blogger handles publishing posts, scheduling a post at 
+		  }		  															//minimum 1 minute ahead is the only way to use the app and have email notifications work.
           const postData = {
             id,
             title,

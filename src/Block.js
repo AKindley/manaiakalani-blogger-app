@@ -5,14 +5,19 @@ import {Link} from 'react-router-dom';
 const statusToColor = {
     'SCHEDULED': 'yellow',
     'DRAFT': 'red',
-    'LIVE': 'green'
+    'LIVE': 'green',
+	'PUBLISHING' : 'green'
 };
 
-export default function Block({id, title, status, content, updated}) {
-    var newdate = Date.parse(updated)
+export default function Block({id, title, status, content, updated, published}) {
+    var newdate = Date.parse(updated);
+	var pubTime = Date.parse(published);
     var testDate = new Date(newdate);
     var UpdateDate = testDate.getDate() + "/" + (testDate.getMonth() + 1)+ "/" + testDate.getFullYear();
-    const color = statusToColor[status];
+	if (status === 'SCHEDULED' && ((pubTime - newdate) < 120000)){
+		status = 'PUBLISHING';
+	}
+	const color = statusToColor[status];
     return (
         <Link to={`/Edit/${id}`} className="block">
             <div className="block-header">
