@@ -290,6 +290,7 @@ class Add extends Component {
 		var year = new Date().getFullYear();
 		view.setQuery("after:" + year + "-01-01 ");
         var picker = new window.google.picker.PickerBuilder()
+			.enableFeature(window.google.picker.Feature.SUPPORT_DRIVES)
             .enableFeature(window.google.picker.Feature.NAV_HIDDEN)
             .enableFeature(window.google.picker.Feature.MULTISELECT_ENABLED)
             .setAppId(APP_ID)
